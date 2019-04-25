@@ -14293,11 +14293,21 @@ var ListEventRenderer = /** @class */ (function (_super) {
 		if (seg.isStart) {
 		    timeDayStart = moment(new Date(calendar.msToMoment(seg.startMs)['_d']));
 		    //console.log('multi-days starting ' + timeDayStart);
-                    timeHtml = 'begins at ' + timeDayStart.format("h:mma");
+
+                    // ugly handling of weird results for full days
+                    if (timeDayStart.format("HH:mm") == "1:00am" || timeDayStart.format("HH:mm") == "01:00") {
+                        timeHtml = view.getAllDayHtml();
+                    } else {
+                        timeHtml = 'début ' + timeDayStart.format("HH:mm");
+                    }
 		} else if (seg.isEnd) {
 		    timeDayEnd = moment(new Date(calendar.msToMoment(seg.endMs)['_d']));
 		    //console.log('multi-days ending ' + timeDayEnd);
-                    timeHtml = 'ends at ' + timeDayEnd.format("h:mma");
+                    if (timeDayEnd.format("HH:mm") == "1:00am" || timeDayEnd.format("HH:mm") == "01:00") {
+                        timeHtml = view.getAllDayHtml();
+                    } else {
+                        timeHtml = 'fin ' + timeDayEnd.format("HH:mm");
+                    }
 	        }
             }
             else { // inner segment that lasts the whole day
@@ -14305,7 +14315,6 @@ var ListEventRenderer = /** @class */ (function (_super) {
             }
         }
         else {
-	    // is it a full day event?
 	    //timeStart = moment(new Date(calendar.msToMoment(seg.startMs)['_d']));
 	    //timeEnd = moment(new Date(calendar.msToMoment(seg.endMs)['_d']));
 	    //console.log(timeStart);
@@ -14316,7 +14325,7 @@ var ListEventRenderer = /** @class */ (function (_super) {
 	    timeHtml = util_1.htmlEscape(this.getTimeText(eventFootprint));
 	    // JY | ugly hack to 'fix' non-detection of 'AllDay' stuff (cf eventFootprint)
 	    console.log(timeHtml);
-	    if (timeHtml == "12:00am - 12:00am" || "00:00 - 00:00") {
+	    if (timeHtml == "12:00am - 12:00am" || timeHtml == "00:00 - 00:00") {
                 timeHtml = view.getAllDayHtml();
 	    }
         }

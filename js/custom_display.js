@@ -1,7 +1,6 @@
 // Edit your ics sources here
 ics_sources = [
-    {url:'https://sogo.alolise.org/SOGo/dav/public/jerome.avond/Calendar/2BBA-5AB19A00-1-1147EF20.ics', event_properties:{color: 'SeaGreen'}},
-    {url:'https://sogo.alolise.org/SOGo/dav/public/jean-yves.michaud/Calendar/4AF9-5CB78580-1-27506AC0.ics', event_properties: {color: 'DodgerBlue'}}
+    {url:'https://sogo.alolise.org/SOGo/dav/public/jerome.avond/Calendar/2BBA-5AB19A00-1-1147EF20.ics', event_properties:{color: 'SeaGreen'}}
 ]
 
 
@@ -45,21 +44,21 @@ $(document).ready(function() {
         },
         defaultView: 'month',
         firstDay: '1',
-        locale: 'en',
-        lang: 'en',
+        locale: 'fr',
+        lang: 'fr',
 
         // customize the button names,
         // otherwise they'd all just say "list"
         views: {
-          listWeek: { buttonText: 'list week' },
-          listMonth: { buttonText: 'list month' }
+          listWeek: { buttonText: 'liste hebdo' },
+          listMonth: { buttonText: 'liste mensuelle' }
         },
 	navLinks: true,
 	editable: false,
         eventLimit: true, // allow "more" link when too many events
         eventRender: function(event, element, view) {
 	  if(view.name == "listMonth" || view.name == "listWeek") {
-            element.find('.fc-list-item-title').append('<div style="margin-top:5px;"></div><span style="font-size: 0.9em">'+(event.description || 'no description')+'</span>'+((event.loc) ? ('<span style="margin-top:5px;display: block"><b>Venue: </b>'+event.loc+'</span>') : ' ')+'</div>');
+            element.find('.fc-list-item-title').append('<div style="margin-top:5px;"></div><span style="font-size: 0.9em">'+(event.description || 'no description')+'</span>'+((event.loc) ? ('<span style="margin-top:5px;display: block"><b>Lieu: </b>'+event.loc+'</span>') : ' ')+'</div>');
 	  } else {
             element.qtip({
                 content: {
@@ -69,7 +68,7 @@ $(document).ready(function() {
                         +' - '+event.end.format("HH:mm")))+'</small><br/>'+
 		         '<b>'+event.title+'</b>'+
 			 ((event.description) ? ('<br/>'+event.description) : ' ')+
-			 ((event.loc) ? ('<br/><b>Venue: </b>'+event.loc) : ' ')
+			 ((event.loc) ? ('<br/><b>Lieu: </b>'+event.loc) : ' ')
                 },
                 style: {
                     classes: 'qtip-bootstrap qtip-rounded qtip-shadown qtip-light',

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<title>Our events</title>
+<title>Nos évènements</title>
 
 <link href='css/fullcalendar.css' rel='stylesheet' />
 <link href='css/list.min.css' rel='stylesheet' />
@@ -23,26 +23,19 @@
 
 <body>
   <center>
-  <h1>Alolise selected events</h1>
+  <h1>Calendrier public Alolise</h1>
     <!-- how cool would it be to feed the below from JS?! -->
     <span hidden id='ics-url1'>https://sogo.alolise.org/SOGo/dav/public/jerome.avond/Calendar/2BBA-5AB19A00-1-1147EF20.ics</span>
-    <span hidden id='ics-url2'>https://sogo.alolise.org/SOGo/dav/public/jean-yves.michaud/Calendar/4AF9-5CB78580-1-27506AC0.ics</span>
     <!-- how cool would it be to feed the above from JS?! -->
   </center>
   <div id='calendar'></div>
   <div class="box-tip" >
-    <p>Tip: to import the ics feeds to your calendar app, use the button next to a calendar to copy its feed URL into your clipboard.</p>
+    <p>Astuce: pour importer le(s) calendrier(s) dans votre application (ex: Thunderbird), utiliser le bouton correspondant au calendrier que vous souhaitez intégrer.</p>
     <!-- how cool would it be to feed the below from JS?! -->
     <div class='calendar-feed'>
       <span class="fc-event-dot" style="background-color: SeaGreen"></span>
-      <span>Alolise calendar 
+      <span>Calendrier Alolise 
         <button id="copyLink1"><img src="./img/clipboard.svg" alt="copy to clipboard" title="copy to clipboard" width="15px" style="padding-top: 3px;"/></button>
-      </span>
-    </div>
-    <div class='calendar-feed'>
-      <span class="fc-event-dot" style="background-color: DodgerBlue"></span>
-      <span>Testing calendar
-        <button id="copyLink2"><img src="./img/clipboard.svg" alt="copy to clipboard" title="copy to clipboard" width="15px" style="padding-top: 3px;"/></button>
       </span>
     </div>
     <!-- how cool would it be to feed the above from JS?! -->
