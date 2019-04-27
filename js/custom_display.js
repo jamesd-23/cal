@@ -1,6 +1,7 @@
 // Edit your ics sources here
 ics_sources = [
-    {url:'https://sogo.alolise.org/SOGo/dav/public/jerome.avond/Calendar/2BBA-5AB19A00-1-1147EF20.ics', event_properties:{color: 'SeaGreen'}}
+    {url:'http://sogo.alolise.org/SOGo/dav/public/contact/Calendar/7ED8-5CC21C00-5-16859160.ics', event_properties:{color: 'SeaGreen'}},
+    {url:'https://www.agendadulibre.org/events.ics', event_properties:{color: 'DodgerBlue'}}
 ]
 
 
