@@ -1,7 +1,8 @@
 // Edit your ics sources here
 ics_sources = [
-    {url:'https://sogo.nomagic.uk/SOGo/dav/public/contact/Calendar/3D08-5CC47000-1-5EA59B00.ics', event_properties:{color: 'SeaGreen'}},
-    {url:'https://opentechcalendar.co.uk/api1/curatedlist/14/events.ical', event_properties: {color: 'DodgerBlue'}}
+//    {url:'https://sogo.nomagic.uk/SOGo/dav/public/contact/Calendar/3D08-5CC47000-1-5EA59B00.ics', event_properties:{color: 'SeaGreen'}},
+//    {url:'https://opentechcalendar.co.uk/api1/curatedlist/14/events.ical', event_properties: {color: 'DodgerBlue'}}
+    {url:'http://sogo.alolise.org/SOGo/dav/public/contact/Calendar/7ED8-5CC21C00-5-16859160.ics', event_properties:{color: '#33CC00'}},
 ]
 
 
