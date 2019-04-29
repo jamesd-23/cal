@@ -2859,6 +2859,8 @@ exports.globalDefaults = {
     },
     // buttonIcons: null,
     allDayText: 'all day',
+    startText: 'begins at ',
+    endText: 'ends at ',
     // allows setting a min-height to the event segment to prevent short events overlapping each other
     agendaEventMinHeight: 0,
     // jquery-ui theming
@@ -10494,6 +10496,12 @@ var DateComponent = /** @class */ (function (_super) {
     DateComponent.prototype.getAllDayHtml = function () {
         return this.opt('allDayHtml') || util_1.htmlEscape(this.opt('allDayText'));
     };
+    DateComponent.prototype.getStartHtml = function () {
+        return this.opt('startHtml') || util_1.htmlEscape(this.opt('startText'));
+    };
+    DateComponent.prototype.getEndHtml = function () {
+        return this.opt('endHtml') || util_1.htmlEscape(this.opt('endText'));
+    };
     // Computes HTML classNames for a single-day element
     DateComponent.prototype.getDayClasses = function (date, noThemeHighlight) {
         var view = this._getView();
@@ -14288,33 +14296,31 @@ var ListEventRenderer = /** @class */ (function (_super) {
         }
         else if (view.isMultiDayRange(componentFootprint.unzonedRange)) {
             if (seg.isStart || seg.isEnd) { // outer segment that probably lasts part of the day
-	        // JY | orig
+	            // ugly hack: original bit of code
                 //timeHtml = util_1.htmlEscape(this._getTimeText(calendar.msToMoment(seg.startMs), calendar.msToMoment(seg.endMs), componentFootprint.isAllDay));
-		if (seg.isStart) {
-		    timeDayStart = moment(new Date(calendar.msToMoment(seg.startMs)['_d']));
-		    //console.log('multi-days starting ' + timeDayStart);
-
+                if (seg.isStart) {
                     // ugly handling of weird results for full days
+                    timeDayStart = moment(new Date(calendar.msToMoment(seg.StartMs)['_d']));
                     if (timeDayStart.format("HH:mm") == "1:00am" || timeDayStart.format("HH:mm") == "01:00") {
                         timeHtml = view.getAllDayHtml();
                     } else {
-                        timeHtml = 'début ' + timeDayStart.format("HH:mm");
+                        timeHtml = view.getStartHtml() + timeDayStart.format("HH:mm");
                     }
-		} else if (seg.isEnd) {
-		    timeDayEnd = moment(new Date(calendar.msToMoment(seg.endMs)['_d']));
-		    //console.log('multi-days ending ' + timeDayEnd);
+                } else if (seg.isEnd) {
+                    timeDayEnd = moment(new Date(calendar.msToMoment(seg.endMs)['_d']));
                     if (timeDayEnd.format("HH:mm") == "1:00am" || timeDayEnd.format("HH:mm") == "01:00") {
                         timeHtml = view.getAllDayHtml();
                     } else {
-                        timeHtml = 'fin ' + timeDayEnd.format("HH:mm");
+                        timeHtml = view.getEndHtml() + timeDayEnd.format("HH:mm");
                     }
-	        }
+                }
             }
             else { // inner segment that lasts the whole day
                 timeHtml = view.getAllDayHtml();
             }
         }
         else {
+	    // is it a full day event?
 	    //timeStart = moment(new Date(calendar.msToMoment(seg.startMs)['_d']));
 	    //timeEnd = moment(new Date(calendar.msToMoment(seg.endMs)['_d']));
 	    //console.log(timeStart);
@@ -14323,7 +14329,7 @@ var ListEventRenderer = /** @class */ (function (_super) {
 
 	    // Display the normal time text for the *event's* times
 	    timeHtml = util_1.htmlEscape(this.getTimeText(eventFootprint));
-	    // JY | ugly hack to 'fix' non-detection of 'AllDay' stuff (cf eventFootprint)
+	    // ugly hack to 'fix' non-detection of 'AllDay' stuff (cf eventFootprint)
 	    console.log(timeHtml);
 	    if (timeHtml == "12:00am - 12:00am" || timeHtml == "00:00 - 00:00") {
                 timeHtml = view.getAllDayHtml();

@@ -1,7 +1,7 @@
 // Edit your ics sources here
 ics_sources = [
-    {url:'http://sogo.alolise.org/SOGo/dav/public/contact/Calendar/7ED8-5CC21C00-5-16859160.ics', event_properties:{color: 'SeaGreen'}},
-    {url:'https://www.agendadulibre.org/events.ics', event_properties:{color: 'DodgerBlue'}}
+    {url:'https://sogo.nomagic.uk/SOGo/dav/public/contact/Calendar/3B1-5CC72E00-1F-71A74280.ics', title: 'Agenda Test', event_properties:{color: 'SeaGreen'}},
+    {url:'https://www.agendadulibre.org/events.ics', title: 'Agenda du Libre (April)', event_properties:{color: 'DodgerBlue'}}
 ]
 
 
@@ -27,12 +27,26 @@ function add_recur_events() {
     }
 }
 
-function load_ics(ics){
+
+function load_ics(ics, cpt){
     data_req(ics.url, function(){
         $('#calendar').fullCalendar('addEventSource', fc_events(this.response, ics.event_properties))
-        sources_to_load_cnt -= 1
+        sources_to_load_cnt -= 1;
     })
+    // Meddling with the HTML to add everything related to our ics feeds dynamically
+    // hidden ics feeds
+    document.getElementById("ics-feeds").insertAdjacentHTML('beforeend', "<span hidden id='ics-url"+cpt+"'>"+ics.url+"</span>");
+
+    // calendar legend
+    document.getElementById("legend-feeds").insertAdjacentHTML('beforeend', "    <div class='calendar-feed'>" +
+        "<span class='fc-event-dot' style='background-color: "+ics.event_properties['color']+"'></span>" +
+        "<span> "+ics.title+" <button id='copyLink"+cpt+"'>" +
+        "<img src='./img/clipboard.svg' alt='copy to clipboard' title='copy to clipboard' width='15px' style='padding-top: 3px;'/></button></span></div>");
+
+    // copy button for ics feeds
+    document.querySelector("#copyLink"+cpt).addEventListener("click", function(){copy("ics-url"+cpt);});
 }
+
 
 $(document).ready(function() {
 
@@ -83,8 +97,10 @@ $(document).ready(function() {
         }
     })
     sources_to_load_cnt = ics_sources.length
+    var cpt = 0;
     for (ics of ics_sources) {
-        load_ics(ics)
+        cpt+=1;
+        load_ics(ics, cpt)
     }
     add_recur_events()
 })
